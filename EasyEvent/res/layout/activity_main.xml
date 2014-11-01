@@ -8,15 +8,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.asep.easyevent.MainActivity" 
     android:orientation="vertical" >
-
-   <Spinner
+	
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/topiclist"/>
+	<Spinner
         android:id="@+id/topics"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
- 
-    <Spinner
+        android:layout_height="100dp"/>
+
+	<TextView 
+	    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+	    android:text="@string/eventlist"/>
+	<Spinner
         android:id="@+id/events"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="100dp" />
+	<Button 
+	    android:id="@+id/showbtn"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/show"
+	    android:onClick="showDetail"/>
 </LinearLayout>

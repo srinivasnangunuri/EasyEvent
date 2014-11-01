@@ -1,9 +1,11 @@
 package com.asep.easyevent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import com.asep.util.*;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,52 +13,42 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class MainActivity extends ActionBarActivity {
 
-	private Spinner topics, events;
-	private String topic, event;
+	private Spinner topicspinner, eventspinner;
+	private Topic topic;
+	private Event event;
+	private List<Topic> topiclist;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		topics = (Spinner) findViewById(R.id.topics);
-        events = (Spinner) findViewById(R.id.events);
-        addItems();
+		topicspinner = (Spinner) findViewById(R.id.topics);
+        eventspinner = (Spinner) findViewById(R.id.events);
+        createLists();
+        addItemsOnTopics();
 	}
-
-	private void addItems() {
-		List<String> topiclist = new ArrayList<String>();
-		topiclist.add("Topic");
-		topiclist.add("Topic1");
-		topiclist.add("Topic2");
-		topiclist.add("Topic3");
-		topiclist.add("Topic4");
-		topiclist.add("Topic5");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,
-                topiclist);
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        topics.setAdapter(dataAdapter);
-        topics.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                // TODO Auto-generated method stub
-                topic = (String.valueOf(topics.getSelectedItem()));
-                addItemsOnEvents(topic);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
+	
+	private void createLists(){
+		topiclist = new ArrayList<Topic>();
+		Topic temp = new Topic("topic1");
+		temp.events.add(Event.getEvent("event11"));
+		temp.events.add(Event.getEvent("event12"));
+		temp.events.add(Event.getEvent("event13"));
+		topiclist.add(temp);
+		temp = new Topic("topic2");
+		temp.events.add(Event.getEvent("event21"));
+		temp.events.add(Event.getEvent("event22"));
+		temp.events.add(Event.getEvent("event23"));
+		topiclist.add(temp);
+		temp = new Topic("topic3");
+		temp.events.add(Event.getEvent("event31"));
+		temp.events.add(Event.getEvent("event32"));
+		temp.events.add(Event.getEvent("event33"));
+		topiclist.add(temp);
 	}
 
 	@Override
@@ -66,23 +58,29 @@ public class MainActivity extends ActionBarActivity {
 		return true;
 	}
 	
+	public void showDetail(View v){
+		Intent intent = new Intent(this, EventDetailActivity.class);
+		intent.putExtra("name", event.name);
+		intent.putExtra("description", event.description);
+		startActivity(intent);
+	}
+	
     public void addItemsOnTopics(){
-        List<String> topiclist = new ArrayList<String>();
-        topiclist.add("Topic");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,
-                topiclist);
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        topics.setAdapter(dataAdapter);
-        topics.setOnItemSelectedListener(new OnItemSelectedListener() {
-
+    	List<String> topicString = new ArrayList<String>();
+    	for(int i = 0 ; i < topiclist.size(); i++){
+    		topicString.add(topiclist.get(i).name);
+    	}
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, 
+        		android.R.layout.simple_spinner_item,
+                topicString);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        topicspinner.setAdapter(dataAdapter);
+        topicspinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                // TODO Auto-generated method stub
-                topic = (String.valueOf(topics.getSelectedItem()));
-                addItemsOnEvents(topic);
+               	topic = topiclist.get(topicspinner.getSelectedItemPosition());
+            	addItemsOnEvents(topic);
             }
 
             @Override
@@ -91,37 +89,27 @@ public class MainActivity extends ActionBarActivity {
         });
     }
     
-    public void addItemsOnEvents(String topicname) {
-        List<String> eventlist = new ArrayList<String>();
-        eventlist.add("Section");
-        //RetrieveListInf sectionList = new RetrieveListImpl();
-        if(topicname.contains("Topic"))
-        {
-            Toast.makeText(getApplicationContext(), "Please Select a Course name",
-                    Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item,
-                    eventlist);
-            dataAdapter
-                    .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            events.setAdapter(dataAdapter);
-            events.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view,
-                                           int position, long id) {
-                    topic = (String.valueOf(topics.getSelectedItem()));
-                    event = (String.valueOf(events.getSelectedItem()));
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-        }
+    public void addItemsOnEvents(Topic topicObject) {
+    	List<String> eventString = new ArrayList<String>();
+    	for(int i = 0 ; i < topicObject.events.size(); i++){
+    		eventString.add(topicObject.events.get(i).name);
+    	}
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item,
+        		eventString);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        eventspinner.setAdapter(dataAdapter);
+        eventspinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+        	@Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+    			topic = topiclist.get(topicspinner.getSelectedItemPosition());
+    			event = topic.events.get(topicspinner.getSelectedItemPosition());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 	
 	
