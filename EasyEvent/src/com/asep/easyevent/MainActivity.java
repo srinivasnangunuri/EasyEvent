@@ -104,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
     			topic = topiclist.get(topicspinner.getSelectedItemPosition());
-    			event = topic.events.get(topicspinner.getSelectedItemPosition());
+    			event = topic.events.get(eventspinner.getSelectedItemPosition());
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
