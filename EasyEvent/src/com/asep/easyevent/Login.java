@@ -51,10 +51,8 @@ public class Login extends ActionBarActivity {
 	}
 	
 	public void register(View v){
-//		Intent intent = new Intent(this, EventDetailActivity.class);
-//		intent.putExtra("name", event.name);
-//		intent.putExtra("description", event.description);
-//		startActivity(intent);
+		Intent intent = new Intent(this, Register.class);
+		startActivity(intent);
 	}
 	
 	class LoginAsync extends AsyncTask<String,Void,Void>{
