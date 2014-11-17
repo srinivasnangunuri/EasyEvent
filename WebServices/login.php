@@ -13,8 +13,8 @@
 
 	$verified = "false";
 	
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = $_POST["username"];
+	$password = $_POST["password"];
 	
 	if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) {
