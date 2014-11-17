@@ -43,7 +43,25 @@
 		}
 	}
 	else if($operation === "add"){
-		$eid = $_POST['event_id'];
+		$sql = "SELECT DISTINCT event_id AS eid FROM EVENT;";
+		$result = $conn->query($sql);
+		$has = false;
+		$eid = 0;
+		for($i = 1; ; $i++){
+			$has = false;
+			if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
+					if($row["eid"]===$i.""){
+						$has = true;
+						break;
+					}
+				}
+			}
+			if($has === false){
+				$eid = $i;
+				break;
+			}
+		}
 		$name = $_POST['name'];
 		$desc = $_POST['desc'];
 		$venue = $_POST['venue'];

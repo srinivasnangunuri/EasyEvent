@@ -6,7 +6,6 @@
 	$username = "adminee";
 	$password = "adminadmin";
 	$dbname = "easyevent";
-	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
 
 	$sql = "SELECT username FROM USER;";
