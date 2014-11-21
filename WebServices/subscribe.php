@@ -41,16 +41,17 @@
 			echo "<result>success</result>";
 		else
 			echo "<result>fail</result>";
-
 	}
 	else if($operation ==="get"){
 		$username = $_POST['user_name'];
-		$sql = "SELECT e.name AS name FROM SUBSCRIPTION s, EVENT e WHERE s.topic_id = e.topic_id AND s.user_name = '$username';";
+		$sql = "SELECT e.event_id ,e.name AS name FROM SUBSCRIPTION s, EVENT e WHERE s.topic_id = e.topic_id AND s.user_name = '$username';";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$tid = $row['name'];
+				$eid = $row['event_id'];
 				echo "<result>";
+				echo "<event_id>$eid</event_id>";
 				echo "<name>$tid</name>";
 				echo "</result>";
 			}
