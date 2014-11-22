@@ -2,13 +2,10 @@ package com.asep.easyevent;
 
 import com.asep.util.DBConn;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,44 +37,47 @@ public class Login extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void login(View v) throws Exception{
-		String username = ((EditText)findViewById(R.id.username)).getText().toString().trim();
-		String password = ((EditText)findViewById(R.id.password)).getText().toString().trim();
-//		String username = "leoyuchuan";
-//		String password = "leoyuchuan";
-		if(username.length()!=0 && password.length()!=0)
-			new LoginAsync().execute(new String[]{username,password});
-		
+
+	public void login(View v) throws Exception {
+		String username = ((EditText) findViewById(R.id.username)).getText()
+				.toString().trim();
+		String password = ((EditText) findViewById(R.id.password)).getText()
+				.toString().trim();
+		// String username = "leoyuchuan";
+		// String password = "leoyuchuan";
+		if (username.length() != 0 && password.length() != 0)
+			new LoginAsync().execute(new String[] { username, password });
+
 	}
-	
-	public void register(View v){
+
+	public void register(View v) {
 		Intent intent = new Intent(this, Register.class);
 		startActivity(intent);
 	}
-	
-	class LoginAsync extends AsyncTask<String,Void,Void>{
+
+	class LoginAsync extends AsyncTask<String, Void, Void> {
 		@Override
 		protected Void doInBackground(String... params) {
 			String username = params[0];
 			String password = params[1];
-			if(DBConn.login(username, password)){
-				Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+			if (DBConn.login(username, password)) {
+				Intent intent = new Intent(getApplicationContext(),
+						MainActivity.class);
 				intent.putExtra("username", username);
 				startActivity(intent);
-			}
-			else{
-				runOnUiThread(new Runnable(){
+			} else {
+				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						Toast toast = Toast.makeText(getApplicationContext(), "Fail to Login", Toast.LENGTH_SHORT);
+						Toast toast = Toast.makeText(getApplicationContext(),
+								"Fail to Login", Toast.LENGTH_SHORT);
 						toast.show();
 					}
 				});
-				
+
 			}
 			return null;
 		}
-		
+
 	}
 }

@@ -1,7 +1,9 @@
 package com.asep.easyevent;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +18,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.asep.util.DBConn;
+import com.asep.dao.EventDao;
+import com.asep.dao.TopicDao;
+import com.asep.easyevent.MainActivity.getAllTopics;
 import com.asep.util.Event;
 import com.asep.util.Topic;
 
@@ -36,28 +40,18 @@ public class AddEventActivity extends Activity {
 		userName = intent.getStringExtra("username");
 		// view.setBackgroundColor(Color.rgb(176, 196, 222));
 		topicspinner = (Spinner) findViewById(R.id.topics);
-		createLists();// This will be replaced by EventDao method, which in
+		getLists();// This will be replaced by EventDao method, which in
 						// backgound connects to the web service
 		addItemsOnTopics();
 	}
 
-	private void createLists() {
-		topiclist = new ArrayList<Topic>();
-		Topic temp = new Topic("topic1", 1);
-		temp.events.add(Event.getEvent("event11"));
-		temp.events.add(Event.getEvent("event12"));
-		temp.events.add(Event.getEvent("event13"));
-		topiclist.add(temp);
-		temp = new Topic("topic2", 2);
-		temp.events.add(Event.getEvent("event21"));
-		temp.events.add(Event.getEvent("event22"));
-		temp.events.add(Event.getEvent("event23"));
-		topiclist.add(temp);
-		temp = new Topic("topic3", 3);
-		temp.events.add(Event.getEvent("event31"));
-		temp.events.add(Event.getEvent("event32"));
-		temp.events.add(Event.getEvent("event33"));
-		topiclist.add(temp);
+	private void getLists() {
+		try {
+			topiclist = new getAllTopics().execute().get();
+			addItemsOnTopics();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -74,24 +68,34 @@ public class AddEventActivity extends Activity {
 				.getText().toString().trim();
 		String eventDesc = ((EditText) findViewById(R.id.eventdesc)).getText()
 				.toString().trim();
-		new ActionAsync().execute(new String[] { eventName, eventVenue,
-				eventDesc, topic.getTopicId() + "" });
+		String topicid = (topic.getTopicId()+"").trim();
+//		Toast t = Toast.makeText(getApplicationContext(), topic.getTopicId()+"", Toast.LENGTH_LONG);
+//		t.show();
+		try {
+			new AddEvent().execute(new String[] { eventName, eventVenue,
+					eventDesc, topicid }).get();
+			this.finish();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 
 	}
 
-	class ActionAsync extends AsyncTask<String, Void, Void> {
+	class AddEvent extends AsyncTask<String, Void, Void> {
 		@Override
 		protected Void doInBackground(String... params) {
-			final String eventName = params[0];
-			final String eventVenue = params[1];
-			final String eventDesc = params[2];
-			final String topicId = params[3];
-
+			String eventName = params[0];
+			String eventVenue = params[1];
+			String eventDesc = params[2];
+			String topicId = params[3];
+			
+			EventDao.addEvents(eventName, eventDesc, eventVenue, Integer.parseInt(topicId), Calendar.getInstance().getTime());
+			
 			runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					Toast toast = Toast.makeText(getApplicationContext(),
-							"Event " + eventName + " TopicID " + topicId,
+							"Event Added!",
 							Toast.LENGTH_SHORT);
 					toast.show();
 				}
@@ -106,7 +110,7 @@ public class AddEventActivity extends Activity {
 	public void addItemsOnTopics() {
 		List<String> topicString = new ArrayList<String>();
 		for (int i = 0; i < topiclist.size(); i++) {
-			topicString.add(topiclist.get(i).name);
+			topicString.add(topiclist.get(i).getName());
 		}
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, topicString);
@@ -122,8 +126,16 @@ public class AddEventActivity extends Activity {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
+				
 			}
 		});
 	}
-
+	
+	class getAllTopics extends AsyncTask<String, Void, List<Topic>> {
+		@Override
+		protected List<Topic> doInBackground(String... params) {
+			List<Topic> myTopics = TopicDao.getTopics();
+			return myTopics;
+		}
+	}
 }

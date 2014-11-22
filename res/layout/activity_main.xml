@@ -53,7 +53,7 @@
 	
 	<Button 
 	    android:id="@+id/subscribeBtn"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    android:layout_marginTop="25dp"
 	    android:layout_height="wrap_content"
 	    android:onClick="subscribeTopicAction"
@@ -64,16 +64,36 @@
 	
 	</LinearLayout>
 	
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+	
 	<Button 
 	    android:id="@+id/addEventBtn"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:onClick="showAddEvent"
 	    android:text="@string/addEvents"
+	    android:layout_marginRight="10sp"
 	    android:layout_marginTop="25dp"
 	    android:textColor="#555"
 	    android:textStyle="bold"
 	    android:textSize="20sp"/>
+	
+	<Button 
+	    android:id="@+id/refresh"
+	    android:layout_width="fill_parent"
+	    android:layout_marginTop="25dp"
+	    android:layout_height="wrap_content"
+	    android:onClick="refresh"
+	    android:text="Refresh ALL"
+	    android:textColor="#555"
+	    android:textStyle="bold"
+	    android:textSize="20sp"/>
+	
+	</LinearLayout>
+	
 	
 	
 	<TextView

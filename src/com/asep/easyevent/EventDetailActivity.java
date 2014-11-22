@@ -1,5 +1,7 @@
 package com.asep.easyevent;
 
+import com.asep.dao.EventDao;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

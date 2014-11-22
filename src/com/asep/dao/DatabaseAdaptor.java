@@ -4,7 +4,6 @@ import org.w3c.dom.Document;
 
 public interface DatabaseAdaptor {
 
-public Document getResultXML(String uriScript,String param);
-	
-	
+	public Document getResultXML(String uriScript, String param);
+
 }

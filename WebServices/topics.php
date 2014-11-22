@@ -57,7 +57,6 @@
 			echo "<result>success</result>";
 		else
 			echo "<result>fail</result>";
-
 	}
 	$conn->close();
 ?>

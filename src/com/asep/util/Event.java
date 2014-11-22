@@ -1,9 +1,10 @@
 package com.asep.util;
 
-import java.sql.Date;
+import java.util.*;
 
 public class Event {
 	private int id;
+
 	public int getId() {
 		return id;
 	}
@@ -15,8 +16,9 @@ public class Event {
 	private String name;
 	private String description;
 	private String venue;
-	private Date eventDate;
-	
+	private java.util.Date eventDate;
+	private int topic_id;
+
 	public String getName() {
 		return name;
 	}
@@ -49,19 +51,30 @@ public class Event {
 		this.eventDate = eventDate;
 	}
 
-	public Event(String name){
+	public Event(String name) {
 		this.name = name;
+		this.description = "";
+		this.venue = "";
+		this.eventDate = Calendar.getInstance().getTime();
 		this.description = "This event is " + name + "!";
 	}
-	
-	public Event(String name,String desc,String venue,Date date){
+
+	public Event(String name, String desc, String venue, Date date) {
 		this.name = name;
 		this.description = desc;
 		this.venue = venue;
 		this.eventDate = date;
 	}
-	
-	public static Event getEvent(String name){
+
+	public static Event getEvent(String name) {
 		return new Event(name);
+	}
+
+	public int getTopic_id() {
+		return topic_id;
+	}
+
+	public void setTopic_id(int topic_id) {
+		this.topic_id = topic_id;
 	}
 }
