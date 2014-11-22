@@ -15,7 +15,6 @@
   <graph edgedefault="directed" id="G">
     <data key="d7"/>
     <node id="n0">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="637.3414285714287" width="1188.0542857142857" x="-312.04999999999995" y="558.9747619047619"/>
@@ -176,7 +175,7 @@
           <y:Geometry height="58.0" width="128.0" x="-103.65401571555753" y="635.9385128057356"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="103.099609375" x="12.4501953125" y="19.3447265625">Subscribe Event<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="19.310546875" modelName="custom" textColor="#000000" visible="true" width="103.95654296875" x="12.021728515625" y="19.3447265625">Subscribe Topic<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -225,7 +224,6 @@
     </node>
     <node id="n11">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:SVGNode>
           <y:Geometry height="100.0" width="60.0" x="-94.9873490488909" y="340.9385128057356"/>
@@ -587,7 +585,6 @@
     </edge>
     <edge id="e18" source="n11" target="n4">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-26.666666666666657" sy="50.0" tx="-55.0" ty="0.0">
@@ -603,7 +600,6 @@
     </edge>
     <edge id="e19" source="n11" target="n9">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="50.0" tx="-27.5" ty="-25.0">
@@ -620,7 +616,6 @@
     </edge>
     <edge id="e20" source="n11" target="n5">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="20.0" sy="50.0" tx="-27.5" ty="-25.0">
@@ -635,7 +630,6 @@
     </edge>
     <edge id="e21" source="n11" target="n6">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="13.333333333333332" sy="50.0" tx="-27.5" ty="-25.0">
@@ -650,7 +644,6 @@
     </edge>
     <edge id="e22" source="n11" target="n7">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="26.666666666666668" sy="50.0" tx="-27.5" ty="-25.0">
@@ -665,7 +658,6 @@
     </edge>
     <edge id="e23" source="n11" target="n8">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-6.666666666666671" sy="50.0" tx="-32.0" ty="-29.0"/>
@@ -677,7 +669,6 @@
     </edge>
     <edge id="e24" source="n11" target="n3">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-13.333333333333343" sy="50.0" tx="-45.83333333333334" ty="-25.0">
@@ -694,7 +685,6 @@
     </edge>
     <edge id="e25" source="n11" target="n10">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="-20.0" sy="50.0" tx="-38.625" ty="-25.0">
@@ -709,7 +699,6 @@
     </edge>
     <edge id="e26" source="n11" target="n2">
       <data key="d8"/>
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="6.666666666666664" sy="50.0" tx="-39.5" ty="-29.0">
